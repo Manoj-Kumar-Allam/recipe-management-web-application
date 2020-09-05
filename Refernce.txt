@@ -1,0 +1,19 @@
+******************************************************** Spring JPA **************************************************************
+@Lob -> it is used specify for the CLOB and BLOB Objects. By default JPA/HIBERNATE have limitations on the string length. this annotation will prepare to expect large size.
+
+In ase of @OneToMany, we have a property called mappedBy to specify where the property being used in the other table
+
+For enumeration we have a annotation to specify it @Enumerated(value=EnumType.STRING)
+By default EnumType is ordinal meaning it will store integers such as 1, 2, 3 instead of strings. if we specify strings it will store actual values
+
+hibernate.ddl-auto has 5 options. which are
+None- won't perform anything
+validate - it will validate JPA Entities against Database entities
+Update - it will update or run the DDL Commands if there is change in tables
+Create - it will create the DDL commands
+create-drop -> it will create and drop all the content at the time of DB Shutdown.
+
+Spring-boot uses create-drop option for embedded Databases, for others it is none
+
+
+
