@@ -15,5 +15,65 @@ create-drop -> it will create and drop all the content at the time of DB Shutdow
 
 Spring-boot uses create-drop option for embedded Databases, for others it is none
 
+we have to enable the below annotations when we have multi module project
+
+@EntityScan("com.ma.petclinicdata.model")
+@EnableJpaRepositories("com.ma.petclinicdata.repository")
+
+Project Lombok
+********************
+Lombok @Data will give stackoverflow error when it finds bi-directional refs. 
+because it will create circular refs leading to stackoverflow
+Solution -: exclude them    
+
+**********************************************************JUNIT*******************************************************
+We can verify how many times a particular method is getting called by 
+Mockito.verify(this.recipeRepository, Mockito.times(1)).findAll();
+
+We can also capture the argument supplied to the methods which get called internally by ArgumentCaptor
+//prepare 
+ArgumentCaptor<Set<Recipe>> argumentCapture = ArgumentCaptor.forClass(Set.class);
+// call main method
+String indexPage = this.controller.getIndexPage(this.model);
+// capture arguments
+Mockito.verify(this.model, Mockito.times(1)).addAttribute(Mockito.eq("recipes"), argumentCapture.capture());
+//validate 
+Set<Recipe> allValues = argumentCapture.getValue();
+assertEquals(2, allValues.size());
+
+**************************************Spring MVC Testing****************************************************************
+Spring has provided ability to mock Dispatcher Servlets to test Spring MVC applications.
+
+Works based on MockServletContext given Spring team
+
+MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+		
+mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("index"));
+		
+**********************************************Integration Testing*************************************************************
+Mavne-surefire-plugin is the the actual plugin which will run the actual unit-tests. it is enabled by default
+
+To run integration testing we need maven-filesafe-plugin. Here the include optional will tell what are integration test cases are
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*ITTest.java</include>
+					</includes>
+					<parallel>none</parallel>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+If the above plugin is not working add <additionalClasspathElements> with ${basedir}/target/classes.
 
 
