@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-import com.ma.recipeapp.controllers.IndexController;
 import com.ma.recipeapp.model.Recipe;
 import com.ma.recipeapp.service.RecipeService;
 
@@ -99,17 +98,6 @@ public class IndexControllerTest {
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("index"));
-	}
-	
-	@Test
-	public void getRecipeById() throws Exception {
-		Recipe recipe = new Recipe();
-		recipe.setId(1l);
-		
-		Mockito.when(this.recipeService.findById(Mockito.anyLong())).thenReturn(recipe);
-		
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
-		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("recipe/show")).andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
 	}
 	
 	/**

@@ -2,7 +2,7 @@ package com.ma.recipeapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ma.recipeapp.service.RecipeService;
@@ -19,7 +19,8 @@ public class IndexController {
 		super();
 		this.recipeService = recipeService;
 	}
-
+	
+	@GetMapping
 	@RequestMapping({"", "/", "/index"})
 	public String getIndexPage(Model model) {
 		log.debug("Fetching all the Recipes");
@@ -27,10 +28,4 @@ public class IndexController {
 		return "index";
 	}
 	
-	@RequestMapping({"/recipe/show/{id}"})
-	public String getRecipeById(@PathVariable String id, Model model) {
-		log.debug("Fetching Recipe having ID : " + id);
-		model.addAttribute("recipe", this.recipeService.findById(new Long(id)));
-		return "recipe/show";
-	}
 }

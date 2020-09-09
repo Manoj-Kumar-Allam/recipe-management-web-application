@@ -111,10 +111,18 @@ public class RecipeServiceImplTest {
 		recipe.setId(2l);
 		Optional<Recipe> ops = Optional.of(recipe);
 		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(ops);
-		Recipe result = this.recipeService.findById(1l);
+		Recipe result = this.recipeService.findRecipeById(1l);
 		assertNotNull(result);
 		Mockito.verify(this.recipeRepository, Mockito.times(1)).findById(Mockito.anyLong());
 		Mockito.verify(this.recipeRepository, Mockito.never()).findAll();
+	}
+	
+	@Test
+	public void testDeleteRecipeById() throws Exception {
+		
+		this.recipeService.deleteRecipeById(new Long(1l));
+		
+		Mockito.verify(this.recipeRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
 	}
 
 	/**
