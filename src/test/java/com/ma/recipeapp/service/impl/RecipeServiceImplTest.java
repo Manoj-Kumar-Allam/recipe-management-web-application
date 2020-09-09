@@ -1,8 +1,9 @@
-package com.ma.recipeapp;
+package com.ma.recipeapp.service.impl;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.After;
@@ -12,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.ma.recipeapp.converters.RecipeCommandToRecipe;
+import com.ma.recipeapp.converters.RecipeToRecipeCommand;
 import com.ma.recipeapp.model.Recipe;
 import com.ma.recipeapp.repository.RecipeRepository;
 import com.ma.recipeapp.service.impl.RecipeServiceImpl;
@@ -30,6 +33,12 @@ public class RecipeServiceImplTest {
 	@Mock
 	RecipeRepository recipeRepository;
 	
+	@Mock
+	RecipeCommandToRecipe recipeCommandToRecipe;
+	
+	@Mock
+	RecipeToRecipeCommand recipeToRecipeCommand;
+	
 	/**
 	 * Perform pre-test initialization.
 	 *
@@ -42,7 +51,7 @@ public class RecipeServiceImplTest {
 	public void setUp()
 		throws Exception {
 		MockitoAnnotations.initMocks(this);
-		recipeService = new RecipeServiceImpl(recipeRepository);
+		recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 
 	/**
@@ -96,6 +105,17 @@ public class RecipeServiceImplTest {
 		assertEquals(1, result.size());
 	}
 	
+	@Test
+	public void findRecipeById() throws Exception {
+		Recipe recipe = new Recipe();
+		recipe.setId(2l);
+		Optional<Recipe> ops = Optional.of(recipe);
+		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(ops);
+		Recipe result = this.recipeService.findById(1l);
+		assertNotNull(result);
+		Mockito.verify(this.recipeRepository, Mockito.times(1)).findById(Mockito.anyLong());
+		Mockito.verify(this.recipeRepository, Mockito.never()).findAll();
+	}
 
 	/**
 	 * Perform post-test clean-up.

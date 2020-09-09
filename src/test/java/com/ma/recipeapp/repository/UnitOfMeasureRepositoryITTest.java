@@ -1,4 +1,4 @@
-package com.ma.recipeapp;
+package com.ma.recipeapp.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

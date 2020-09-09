@@ -1,4 +1,4 @@
-package com.ma.recipeapp;
+package com.ma.recipeapp.controllers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -99,6 +99,17 @@ public class IndexControllerTest {
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("index"));
+	}
+	
+	@Test
+	public void getRecipeById() throws Exception {
+		Recipe recipe = new Recipe();
+		recipe.setId(1l);
+		
+		Mockito.when(this.recipeService.findById(Mockito.anyLong())).thenReturn(recipe);
+		
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("recipe/show")).andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
 	}
 	
 	/**

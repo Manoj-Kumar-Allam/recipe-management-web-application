@@ -27,6 +27,8 @@ because it will create circular refs leading to stackoverflow
 Solution -: exclude them    
 
 **********************************************************JUNIT*******************************************************
+Junit5 is designed to work with JAVA8 or higher. however it comes with vintage to support backward comaptibility
+
 We can verify how many times a particular method is getting called by 
 Mockito.verify(this.recipeRepository, Mockito.times(1)).findAll();
 
@@ -75,5 +77,23 @@ To run integration testing we need maven-filesafe-plugin. Here the include optio
 			</plugin>
 			
 If the above plugin is not working add <additionalClasspathElements> with ${basedir}/target/classes.
+
+If we set JUNIT 5 manually that is by adding jupiter-api and jupiter.engine as dependencies, then we have add Maven build plugin for sunfire and need to pass junit-platform-surefire-provider as dependency.
+
+*****************************************Mockito JUNIT 5******************************************************************
+
+In Junit5 Mockito works bit different. We have to give @ExtendWith(MockitoExtension.class) on top of the class name
+
+@InjectMocks will instantiate the object and inject the objects which are annotated with @MockMvc
+
+When something is void, we should call verify whether it is hitting the method or not
+
+Mockito.verify(this.ownerRepository, times(1)).delete(Mockito.any(Owner.class));
+
+****************************************************************Command Beans(Backing Bean)**********************************************************************************
+
+1. Spring will translate the POJO coming from web page into the java bean if it has same property names by using reflection mechanism.
+
+
 
 
