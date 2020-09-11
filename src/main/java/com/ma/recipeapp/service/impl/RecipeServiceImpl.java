@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.ma.recipeapp.commands.RecipeCommand;
@@ -51,6 +53,7 @@ public class RecipeServiceImpl implements RecipeService {
 		return this.recipeToRecipeCommand.convert(findRecipeById(id));
 	}
 
+	@Transactional
 	@Override
 	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
 		Recipe detachedRecipe = this.recipeCommandToRecipe.convert(recipeCommand);

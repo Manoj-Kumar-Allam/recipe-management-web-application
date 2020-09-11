@@ -3,7 +3,6 @@ package com.ma.recipeapp.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ma.recipeapp.service.RecipeService;
 
@@ -20,8 +19,7 @@ public class IndexController {
 		this.recipeService = recipeService;
 	}
 	
-	@GetMapping
-	@RequestMapping({"", "/", "/index"})
+	@GetMapping({"", "/", "/index"})
 	public String getIndexPage(Model model) {
 		log.debug("Fetching all the Recipes");
 		model.addAttribute("recipes", this.recipeService.getRecipes());
