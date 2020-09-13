@@ -48,13 +48,10 @@ public class RecipeControllerTest {
 	}
 	
 	@Test
-	public void getRecipeByIdNotFound() throws Exception {
-		Recipe recipe = new Recipe();
-		recipe.setId(1l);
-		
+	public void getRecipeByIdNotFound() throws Exception {		
 		Mockito.when(this.recipeService.findRecipeById(Mockito.anyLong())).thenThrow(NotFoundException.class);
 		
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).setControllerAdvice(new ControllerExcpetionHandler()).build();
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show")).andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
@@ -68,7 +65,7 @@ public class RecipeControllerTest {
 		
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
 		
-		mockMvc.perform(MockMvcRequestBuilders.post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("id", "").param("description", "some String")).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/2/show"));
+		mockMvc.perform(MockMvcRequestBuilders.post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED).param("id", "").param("description", "some String").param("preparationTime", "10").param("directions", "directions")).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/2/show"));
 	}
 	
 	@Test

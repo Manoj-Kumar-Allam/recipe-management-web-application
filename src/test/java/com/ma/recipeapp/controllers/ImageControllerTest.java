@@ -37,7 +37,7 @@ public class ImageControllerTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		controller = new ImageController(imageService, recipeService);
-		mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(this.controller).setControllerAdvice(new ControllerExcpetionHandler()).build();
 	}
 	
 	@Test
@@ -46,7 +46,7 @@ public class ImageControllerTest {
 		cmd.setId(30l);
 		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyLong())).thenReturn(cmd);
 		
-		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/30/image")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("/recipe/imageuploadform"));
+		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/30/image")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("recipe/imageuploadform"));
 		Mockito.verify(this.recipeService, Mockito.times(1)).findRecipeCommandById(Mockito.anyLong());
 	}
 	

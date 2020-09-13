@@ -1,5 +1,8 @@
 package com.ma.recipeapp.controllers;
 
+import javax.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ma.recipeapp.commands.RecipeCommand;
@@ -48,7 +52,7 @@ public class RecipeController {
 	}
 
 	@PostMapping("/recipe")
-	public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand) {
+	public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand) {
 		log.debug("Saving Recipe....");
 		RecipeCommand saveRecipeCommand = this.recipeService.saveRecipeCommand(recipeCommand);
 		return "redirect:/recipe/" + saveRecipeCommand.getId() + "/show";
@@ -61,6 +65,7 @@ public class RecipeController {
 		return "redirect:/";
 	}
 
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
 	public ModelAndView handleNotFound(Exception exception) {
 		log.error("Handling Not Found Exception");
@@ -71,13 +76,4 @@ public class RecipeController {
 		return modelAndView;
 	}
 
-	@ExceptionHandler(NumberFormatException.class)
-	public ModelAndView handleBadRequest(Exception exception) {
-		log.error("Handling Number Format Exception");
-		log.error(exception.getMessage());
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("400Error");
-		modelAndView.addObject("exception", exception);
-		return modelAndView;
-	}
 }

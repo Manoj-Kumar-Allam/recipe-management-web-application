@@ -142,4 +142,5 @@ Generally any unhandled exception on server side
 509 File excedded
 599 Network timeout
 
+By using Controller Advice, we can set up an exception at global level
  
