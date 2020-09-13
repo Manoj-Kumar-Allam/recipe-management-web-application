@@ -94,6 +94,52 @@ Mockito.verify(this.ownerRepository, times(1)).delete(Mockito.any(Owner.class));
 
 1. Spring will translate the POJO coming from web page into the java bean if it has same property names by using reflection mechanism.
 
+Web Data Binders -:
+*******************************************
+1. Web data binders controls the data conversion or POJO mapping coming from command objects or from UI.
+
+@InitBinder
+	public void showAllowedFields(WebDataBinder webDataBinder) {
+		webDataBinder.setDisallowedFields("id");
+	}
+	
+the above code will not allow user to modify the id field.
+
+in this case we have to pass the id variable with @Pathvariable in order to update the things as thw main object will come witout Id
+
+@ModelAttribute("owner") -> it will populate the values for the defined attributes whenever any call come to that particular controller.
+
+@ModelAttribute("types")
+	public Collection<PetType> populatePetTypes() {
+		return this.petTypeService.findAll();
+	}
+	
+this will populate all the pet types into types 
 
 
+********************************************************************HTTP Status Codes****************************************************************************
+100 series -> INFO Messages
+200 series -> Success Message
+300 series -> redirection
+400 series -> Not allowed or client side errors
+500 series -> server side errors
 
+HTTP 500 -> Internal Server error
+Generally any unhandled exception on server side
+
+400 Bad Requests -> can not process the data input due to client error (Invalid Data)
+401 Unauthorized -> Authentication Required
+403 Forbidden Authentication to the required source
+404 Not Found -> Resource Not found 
+405 Method not allowed - HTTP Method not allowed. (in case of get method doing post)
+406 Not acceptable 
+409 Conflict -> Possible with simultaneous updates
+417 Exception failed -> if something is posted back without some fileds
+423 Locked
+449 Retry with
+500 internal server error
+503 Service unavailable
+509 File excedded
+599 Network timeout
+
+ 

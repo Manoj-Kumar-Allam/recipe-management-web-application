@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import com.ma.recipeapp.commands.RecipeCommand;
+import com.ma.recipeapp.exceptions.NotFoundException;
 import com.ma.recipeapp.model.Recipe;
 import com.ma.recipeapp.service.RecipeService;
 
@@ -44,6 +45,18 @@ public class RecipeControllerTest {
 		
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
 		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("recipe/show")).andExpect(MockMvcResultMatchers.model().attributeExists("recipe"));
+	}
+	
+	@Test
+	public void getRecipeByIdNotFound() throws Exception {
+		Recipe recipe = new Recipe();
+		recipe.setId(1l);
+		
+		Mockito.when(this.recipeService.findRecipeById(Mockito.anyLong())).thenThrow(NotFoundException.class);
+		
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
+		
+		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show")).andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 	
 	@Test

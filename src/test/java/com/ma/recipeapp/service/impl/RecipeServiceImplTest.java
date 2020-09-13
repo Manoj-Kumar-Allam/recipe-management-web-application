@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.ma.recipeapp.converters.RecipeCommandToRecipe;
 import com.ma.recipeapp.converters.RecipeToRecipeCommand;
+import com.ma.recipeapp.exceptions.NotFoundException;
 import com.ma.recipeapp.model.Recipe;
 import com.ma.recipeapp.repository.RecipeRepository;
 import com.ma.recipeapp.service.impl.RecipeServiceImpl;
@@ -124,7 +125,14 @@ public class RecipeServiceImplTest {
 		
 		Mockito.verify(this.recipeRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
 	}
-
+	
+	@Test(expected=NotFoundException.class)
+	public void getRecipeByIdNotFound() throws Exception {
+		Optional<Recipe> recipe = Optional.empty();
+		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(recipe);
+		this.recipeService.findRecipeById(1l);
+	}
+	
 	/**
 	 * Perform post-test clean-up.
 	 *
