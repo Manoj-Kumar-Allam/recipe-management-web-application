@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,10 +53,17 @@ public class RecipeController {
 	}
 
 	@PostMapping("/recipe")
-	public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand) {
-		log.debug("Saving Recipe....");
-		RecipeCommand saveRecipeCommand = this.recipeService.saveRecipeCommand(recipeCommand);
-		return "redirect:/recipe/" + saveRecipeCommand.getId() + "/show";
+	public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult result) {
+
+		if (result.hasErrors()) {
+			result.getAllErrors().forEach(e -> log.debug(e.toString()));
+			return "recipe/recipeform";
+		} else {
+			log.debug("Saving Recipe....");
+			RecipeCommand saveRecipeCommand = this.recipeService.saveRecipeCommand(recipeCommand);
+			return "redirect:/recipe/" + saveRecipeCommand.getId() + "/show";
+		}
+
 	}
 
 	@GetMapping("/recipe/{id}/delete")
