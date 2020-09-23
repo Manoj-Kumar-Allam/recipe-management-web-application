@@ -144,3 +144,52 @@ Generally any unhandled exception on server side
 
 By using Controller Advice, we can set up an exception at global level
  
+ 
+ 
+*********************************************************Docker***************************************************************
+
+Docker runs inside Linux Container and they are very much linux centric
+1.To list all the images docker images -a
+2. docker image prune -a --force --filter "until=240h" it will remove all the images in last 10 days that is 240h
+3. docker images prune -a (all) -> it will remove all the images
+4. to know the running processes -> docker ps
+5. to list out all the containers -> docker ps -a
+6. to tun mongo with port enabling for the application -> docker run -p 27017:27017 -d mongo (-d deamon to run it in the background)
+7. to check logs docker logs -f [container ID Name]
+
+8. to see the layers -> docker image inspect mongo
+9. To see full hashcode -> docker images -q --no--trunc
+10. on doing docker images -> it will give first 12 hash code characters
+
+11. To look at the history by using keyword histroy | grep mongo
+
+12. to map the container to use host resources  docker run -p 27017:27017 -v /users/manojkumara/data/db:/data/db -d mongo
+(-v for volume)
+
+13. For setting mysql docker run --name ma-mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -v /users/manojkumara/Dmysql:/var/lib/mysql -p 3306:3306 -d mysql
+
+here -e for environment variables
+
+To make centos image run continuously use the command -: docker run -d centos tail -f /dev/null
+here f is follow    
+
+by bashing on running centos, we can install java by using the command -> yum install java
+
+FROM centos
+
+RUN yum install -y java
+
+VOLUME /tmp
+ADD target/recipe-app-0.0.1-SNAPSHOT.jar myapp.jar
+RUN sh -c 'touch /myapp.jar'
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/ ./urandom", "-jar", "/myapp.jar"]
+
+sample docker file
+
+FROM openjdk:8
+WORKDIR /app
+ADD target/esp-otx-service-2.0.0.jar /app
+ADD ./gcp_credentials.json /app
+ADD src/main/resources/application.properties /app
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "esp-otx-service-2.0.0.jar", "--spring.config.location", "/app/application.properties"]
