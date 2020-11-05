@@ -150,15 +150,23 @@ By using Controller Advice, we can set up an exception at global level
 
 Docker runs inside Linux Container and they are very much linux centric
 1.To list all the images docker images -a
+
 2. docker image prune -a --force --filter "until=240h" it will remove all the images in last 10 days that is 240h
+
 3. docker images prune -a (all) -> it will remove all the images
+
 4. to know the running processes -> docker ps
+
 5. to list out all the containers -> docker ps -a
+
 6. to tun mongo with port enabling for the application -> docker run -p 27017:27017 -d mongo (-d deamon to run it in the background)
+
 7. to check logs docker logs -f [container ID Name]
 
 8. to see the layers -> docker image inspect mongo
+
 9. To see full hashcode -> docker images -q --no--trunc
+
 10. on doing docker images -> it will give first 12 hash code characters
 
 11. To look at the history by using keyword histroy | grep mongo
@@ -193,3 +201,70 @@ ADD ./gcp_credentials.json /app
 ADD src/main/resources/application.properties /app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "esp-otx-service-2.0.0.jar", "--spring.config.location", "/app/application.properties"]
+
+
+
+docker build -f [docker-file] -t [location to tag]:[tag name]
+
+creating a tag for local image or rechanging the local tag
+**********************************************************
+
+docker tag [local image] [location of tag]:[tag name]
+
+docker push [location name] will pushes the image to docker hub
+
+docker run --name discovery -d ca379871bdbc -> To set name for an image
+
+docker exec -it 5831cad2533a /bin/bash
+
+Docker virtualizes only the application but not the kernal, it uses the underlying kernal of the host machine.
+
+Whereas virtual machine, it has it own application layer and kernal layer.
+
+1. Docker image is mucch smaller
+2. Docker containers start and run much fast
+3. Comapatibility -: Vm if any OS can run on any OS host. but we can't with docker.
+
+Because if we want to run linux based docker image on windows host. sO THERE SHOULD BE some way to enable it.
+
+Windows 10 natively supports that.
+
+docker network create [N/W]
+
+docker run-net [network name] [image id or name], if 2 containers are in same network, they can talk to each other by using Conatiner ID, no ports are needed
+
+we nned set the property to connect with it according to the Docker hub instructions
+
+
+Docker Compose -:
+
+With Docker Compose file we can take the whole commands and its configurations for different services and map into a file. So that we have structred comments.
+
+Sample file
+
+version: '3'         # version of docker-compose 
+services:
+  monodb:            # Container Name
+    image: mongo     # The image
+    ports:
+      - 27017:27017
+    environment:     # the environment variables
+      - Mongo_INITDB_ROOT_USERNAME=admin
+      - Mongo_INITDB_ROOT_PASSWORD=password
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8080:8080
+    environment:     # the environment variables
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+  
+Docker Compose takes care of creating a common network, we dont' have to create any network externally
+
+To run -:
+docker-compose -f [compose.yaml] up 
+
+here up will tell to start all the conatiners in the yaml file
+
+here the downside is the logs of both the conatiners are mixed
