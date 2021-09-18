@@ -18,7 +18,6 @@ import com.ma.recipeapp.converters.RecipeToRecipeCommand;
 import com.ma.recipeapp.exceptions.NotFoundException;
 import com.ma.recipeapp.model.Recipe;
 import com.ma.recipeapp.repository.RecipeRepository;
-import com.ma.recipeapp.service.impl.RecipeServiceImpl;
 
 /**
  * The class <code>RecipeServiceImplTest</code> contains tests for the class <code>{@link RecipeServiceImpl}</code>.
@@ -121,7 +120,7 @@ public class RecipeServiceImplTest {
 	@Test
 	public void testDeleteRecipeById() throws Exception {
 		
-		this.recipeService.deleteRecipeById(new Long(1l));
+		this.recipeService.deleteRecipeById(1l);
 		
 		Mockito.verify(this.recipeRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
 	}

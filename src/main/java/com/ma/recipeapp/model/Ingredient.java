@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
@@ -30,6 +31,7 @@ public class Ingredient {
 	private Recipe recipe;
 	
 	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "uom_id")
 	private UnitOfMeasure unitOfMeasure;
 	
 	

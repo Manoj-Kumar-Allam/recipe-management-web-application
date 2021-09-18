@@ -71,7 +71,7 @@ public class RecipeControllerTest {
 	@Test
 	public void testUpdateRecipe() throws Exception{
 		RecipeCommand recipeCommand = new RecipeCommand();
-		recipeCommand.setId(new Long(2l));
+		recipeCommand.setId(2l);
 		
 		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyLong())).thenReturn(recipeCommand);
 		

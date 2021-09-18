@@ -1,7 +1,6 @@
 package com.ma.recipeapp.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 import org.junit.After;
@@ -54,7 +53,7 @@ public class ImageControllerTest {
 	public void handleImagePost() throws Exception {
 		MockMultipartFile multiprtFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain", "testing.txt".getBytes());
 		
-		mockMvc.perform(multipart("/recipe/30/image").file(multiprtFile)).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(header().string("Location", "/recipe/30/show"));
+		mockMvc.perform(MockMvcRequestBuilders.multipart("/recipe/30/image").file(multiprtFile)).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(header().string("Location", "/recipe/30/show"));
 		Mockito.verify(this.imageService, Mockito.times(1)).saveImageFile(Mockito.anyLong(), Mockito.any());
 	}
 	

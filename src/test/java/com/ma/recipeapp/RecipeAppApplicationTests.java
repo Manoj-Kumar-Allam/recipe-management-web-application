@@ -24,7 +24,7 @@ class RecipeAppApplicationTests {
 	
 	@Test
 	public void getId() throws Exception {
-		Long id = new Long(4l);
+		Long id = 4l;
 		this.category.setId(id);
 		assertEquals(id, this.category.getId());
 	}

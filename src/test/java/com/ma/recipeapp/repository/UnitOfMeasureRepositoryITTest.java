@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ma.recipeapp.model.UnitOfMeasure;
-import com.ma.recipeapp.repository.UnitOfMeasureRepository;
 
 /**
  * The class <code>UnitOfMeasureRepositoryTest</code> contains tests for the class <code>{@link UnitOfMeasureRepository}</code>.

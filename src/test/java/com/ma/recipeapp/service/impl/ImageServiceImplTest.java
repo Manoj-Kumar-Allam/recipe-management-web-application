@@ -39,7 +39,7 @@ public class ImageServiceImplTest {
 		
 		MockMultipartFile multipartFile = new MockMultipartFile("imageFile", "test.txt", "text/plain", "MANOJ".getBytes());
 		
-		this.imageService.saveImageFile(new Long(10l), multipartFile);
+		this.imageService.saveImageFile(10l, multipartFile);
 		
 		ArgumentCaptor<Recipe> argumentCapture = ArgumentCaptor.forClass(Recipe.class);
 		

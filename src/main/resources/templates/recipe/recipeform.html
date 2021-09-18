@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8" />
-<title>Recipe Form</title>
+	<meta charset="UTF-8" />
+	<title>Recipe Form</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous"
-	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
+		th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
 
-<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"
-	th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </head>
+
 <body>
 	<div class="container-fluid" style="margin-top: 20px">
 		<div class="row">
@@ -39,15 +37,13 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-3 form-group"
-										th:class="${#fields.hasErrors('description')}
-                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-										<label th:text="#{recipe.description}">Recipe Description</label> <input type="text"
-											class="form-control" th:field="*{description}"
-											th:errorclass="has-error" /> <span class="help-block"
-											th:if="${#fields.hasErrors('description')}">
+										th:class="${#fields.hasErrors('description')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+										<label th:text="#{recipe.description}">Recipe
+											Description</label> <input type="text" class="form-control"
+											th:field="*{description}" th:errorclass="has-error" /> <span
+											class="help-block" th:if="${#fields.hasErrors('description')}">
 											<ul>
-												<li th:each="err : ${#fields.errors('description')}"
-													th:text="${err}" />
+												<li th:each="err : ${#fields.errors('description')}" th:text="${err}" />
 											</ul>
 										</span>
 									</div>
@@ -68,29 +64,24 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-3 form-group"
-										th:class="${#fields.hasErrors('preparationTime')}
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('preparationTime')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-										<label>Prep Time:</label> <input type="text"
-											class="form-control" th:field="*{preparationTime}"
-											th:errorclass="has-error" /> <span class="help-block"
-											th:if="${#fields.hasErrors('preparationTime')}">
+										<label>Prep Time:</label> <input type="text" class="form-control"
+											th:field="*{preparationTime}" th:errorclass="has-error" /> <span
+											class="help-block" th:if="${#fields.hasErrors('preparationTime')}">
 											<ul>
 												<li th:each="err : ${#fields.errors('preparationTime')}"
 													th:text="${err}" />
 											</ul>
 										</span>
 									</div>
-									<div class="col-md-3 form-group"
-										th:class="${#fields.hasErrors('cookTime')}
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('cookTime')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-										<label>Cooktime:</label> <input type="text"
-											class="form-control" th:field="*{cookTime}"
-											th:errorclass="has-error" /> <span class="help-block"
+										<label>Cooktime:</label> <input type="text" class="form-control"
+											th:field="*{cookTime}" th:errorclass="has-error" /> <span class="help-block"
 											th:if="${#fields.hasErrors('cookTime')}">
 											<ul>
-												<li th:each="err : ${#fields.errors('cookTime')}"
-													th:text="${err}" />
+												<li th:each="err : ${#fields.errors('cookTime')}" th:text="${err}" />
 											</ul>
 										</span>
 									</div>
@@ -110,15 +101,12 @@
 								</div>
 								<div class="row">
 									<div class="col-md-3 form-group"
-										th:class="${#fields.hasErrors('servings')}
-                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-										<label>Servings:</label> <input type="text"
-											class="form-control" th:field="*{servings}"
-											th:errorclass="has-error" /> <span class="help-block"
+										th:class="${#fields.hasErrors('servings')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+										<label>Servings:</label> <input type="text" class="form-control"
+											th:field="*{servings}" th:errorclass="has-error" /> <span class="help-block"
 											th:if="${#fields.hasErrors('servings')}">
 											<ul>
-												<li th:each="err : ${#fields.errors('servings')}"
-													th:text="${err}" />
+												<li th:each="err : ${#fields.errors('servings')}" th:text="${err}" />
 											</ul>
 										</span>
 									</div>
@@ -126,15 +114,13 @@
 										<label>Source:</label> <input type="text" class="form-control"
 											th:field="*{source}" />
 									</div>
-									<div class="col-md-3 form-group"
-										th:class="${#fields.hasErrors('url')}
+									<div class="col-md-3 form-group" th:class="${#fields.hasErrors('url')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-										<label>URL:</label> <input type="text" class="form-control"
-											th:field="*{url}" th:errorclass="has-error" /> <span
-											class="help-block" th:if="${#fields.hasErrors('url')}">
+										<label>URL:</label> <input type="text" class="form-control" th:field="*{url}"
+											th:errorclass="has-error" /> <span class="help-block"
+											th:if="${#fields.hasErrors('url')}">
 											<ul>
-												<li th:each="err : ${#fields.errors('url')}"
-													th:text="${err}" />
+												<li th:each="err : ${#fields.errors('url')}" th:text="${err}" />
 											</ul>
 										</span>
 									</div>
@@ -161,8 +147,7 @@
 											<li th:remove="all">1 Cup of milk</li>
 											<li th:remove="all">1 Teaspoon of chocolate</li>
 											<li th:remove="all">asdf</li>
-											<li th:each="ingredient : ${recipe.ingredients}"
-												th:text="${(ingredient.getAmount() +
+											<li th:each="ingredient : ${recipe.ingredients}" th:text="${(ingredient.getAmount() +
                                         ' ' + ingredient.unitOfMeasure.getDescription() +
                                         ' - ' + ingredient.getDescription())}">1
 												Teaspoon of Sugar</li>
@@ -178,8 +163,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12 form-group">
-										<textarea class="form-control" rows="3"
-											th:field="*{directions}"></textarea>
+										<textarea class="form-control" rows="3" th:field="*{directions}"></textarea>
 									</div>
 								</div>
 							</div>
@@ -204,4 +188,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
