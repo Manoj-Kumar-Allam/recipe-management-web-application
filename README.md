@@ -1,3 +1,3 @@
-[![CircleCI](https://circleci.com/gh/Manoj-Kumar-Allam/recipe-app/tree/master.svg?style=svg)](https://circleci.com/gh/Manoj-Kumar-Allam/recipe-app/tree/master)
+<a href="https://circleci.com/gh/Manoj-Kumar-Allam/recipe-app"><img src="https://circleci.com/gh/Manoj-Kumar-Allam/recipe-app.svg?style=svg"></a>
 
 # recipe-app  
