@@ -26,7 +26,7 @@ public class ImageServiceImplTest {
 	@Before
 	public void setUp()
 		throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		imageService = new ImageServiceImpl(recipeRepository);
 	}
 	

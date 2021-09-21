@@ -52,7 +52,7 @@ public class IndexControllerTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		this.controller = new IndexController(recipeService); 
 	}
 	

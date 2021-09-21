@@ -50,7 +50,7 @@ public class RecipeServiceImplTest {
 	@Before
 	public void setUp()
 		throws Exception {
-		MockitoAnnotations.initMocks(this);
+		MockitoAnnotations.openMocks(this);
 		recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 
