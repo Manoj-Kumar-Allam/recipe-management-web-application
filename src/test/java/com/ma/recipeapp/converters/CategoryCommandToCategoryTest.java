@@ -12,7 +12,7 @@ import com.ma.recipeapp.model.Category;
 
 public class CategoryCommandToCategoryTest {
 
-    public static final Long ID_VALUE = 1l;
+    public static final String ID_VALUE = "1";
     public static final String DESCRIPTION = "description";
     CategoryCommandToCategory conveter;
 

@@ -70,10 +70,10 @@ public class IndexControllerTest {
 		Set<Recipe> recipes = new HashSet<>();
 		
 		Recipe recipe = new Recipe();
-		recipe.setId(1l);
+		recipe.setId("1");
 		
 		Recipe recipe1 = new Recipe();
-		recipe1.setId(10l);
+		recipe1.setId("10");
 		
 		recipes.add(recipe);
 		recipes.add(recipe1);

@@ -33,13 +33,13 @@ public class ImageServiceImplTest {
 	@Test
 	public void testSaveImageFile() throws Exception {
 		Recipe r = new Recipe();
-		r.setId(10l);
+		r.setId("10");
 		
-		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(r));
+		Mockito.when(this.recipeRepository.findById(Mockito.anyString())).thenReturn(Optional.of(r));
 		
 		MockMultipartFile multipartFile = new MockMultipartFile("imageFile", "test.txt", "text/plain", "MANOJ".getBytes());
 		
-		this.imageService.saveImageFile(10l, multipartFile);
+		this.imageService.saveImageFile("10", multipartFile);
 		
 		ArgumentCaptor<Recipe> argumentCapture = ArgumentCaptor.forClass(Recipe.class);
 		

@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 
 import com.ma.recipeapp.commands.RecipeCommand;
@@ -41,7 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public Recipe findRecipeById(Long id) {
+	public Recipe findRecipeById(String id) {
 		Optional<Recipe> recipeById = this.recipeRepository.findById(id);
 		if(!recipeById.isPresent()) {
 			throw new NotFoundException("Recipe Not Found. For ID : " + id.toString());
@@ -50,11 +48,10 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	
 	@Override
-	public RecipeCommand findRecipeCommandById(Long id) {
+	public RecipeCommand findRecipeCommandById(String id) {
 		return this.recipeToRecipeCommand.convert(findRecipeById(id));
 	}
 
-	@Transactional
 	@Override
 	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
 		Recipe detachedRecipe = this.recipeCommandToRecipe.convert(recipeCommand);
@@ -62,7 +59,7 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 
 	@Override
-	public void deleteRecipeById(Long id) {
+	public void deleteRecipeById(String id) {
 		this.recipeRepository.deleteById(id);
 	}
 

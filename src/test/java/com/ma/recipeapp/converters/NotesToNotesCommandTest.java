@@ -15,7 +15,7 @@ import com.ma.recipeapp.model.Notes;
  */
 public class NotesToNotesCommandTest {
 
-    public static final Long ID_VALUE = 1L;
+    public static final String ID_VALUE = "1";
     public static final String RECIPE_NOTES = "Notes";
     NotesToNotesCommand converter;
 

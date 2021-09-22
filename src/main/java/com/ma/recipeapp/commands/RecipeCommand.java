@@ -1,7 +1,7 @@
 package com.ma.recipeapp.commands;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -23,7 +23,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RecipeCommand {
-    private Long id;
+    private String id;
 
     @NotBlank
     @Size(min=3, max=999)
@@ -47,9 +47,9 @@ public class RecipeCommand {
     
     @NotBlank
     private String directions;
-    private Set<IngredientCommand> ingredients = new HashSet<>();
+    private List<IngredientCommand> ingredients = new ArrayList<>();
     private Difficulty difficulty;
     private NotesCommand notes;
-    private Set<CategoryCommand> categories = new HashSet<>();
+    private List<CategoryCommand> categories = new ArrayList<>();
     private Byte[] image;
 }

@@ -13,7 +13,7 @@ import com.ma.recipeapp.model.UnitOfMeasure;
 public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     public static final String DESCRIPTION = "description";
-    public static final Long LONG_VALUE = 1L;
+    public static final String LONG_VALUE = "1";
 
     UnitOfMeasureCommandToUnitOfMeasure converter;
 

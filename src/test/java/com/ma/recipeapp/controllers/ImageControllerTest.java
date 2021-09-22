@@ -42,11 +42,11 @@ public class ImageControllerTest {
 	@Test
 	public void getImageForm() throws Exception {
 		RecipeCommand cmd = new RecipeCommand();
-		cmd.setId(30l);
-		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyLong())).thenReturn(cmd);
+		cmd.setId("30");
+		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyString())).thenReturn(cmd);
 		
 		mockMvc.perform(MockMvcRequestBuilders.get("/recipe/30/image")).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.view().name("recipe/imageuploadform"));
-		Mockito.verify(this.recipeService, Mockito.times(1)).findRecipeCommandById(Mockito.anyLong());
+		Mockito.verify(this.recipeService, Mockito.times(1)).findRecipeCommandById(Mockito.anyString());
 	}
 	
 	@Test
@@ -54,12 +54,12 @@ public class ImageControllerTest {
 		MockMultipartFile multiprtFile = new MockMultipartFile("imagefile", "testing.txt", "text/plain", "testing.txt".getBytes());
 		
 		mockMvc.perform(MockMvcRequestBuilders.multipart("/recipe/30/image").file(multiprtFile)).andExpect(MockMvcResultMatchers.status().is3xxRedirection()).andExpect(header().string("Location", "/recipe/30/show"));
-		Mockito.verify(this.imageService, Mockito.times(1)).saveImageFile(Mockito.anyLong(), Mockito.any());
+		Mockito.verify(this.imageService, Mockito.times(1)).saveImageFile(Mockito.anyString(), Mockito.any());
 	}
 	
 	public void renderImageFromDBTest() throws Exception {
 		RecipeCommand r = new RecipeCommand();
-		r.setId(10l);
+		r.setId("10");
 		
 		String name = "I am Manoj";
 		
@@ -72,7 +72,7 @@ public class ImageControllerTest {
 		
 		r.setImage(b);
 		
-		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyLong())).thenReturn(r);
+		Mockito.when(this.recipeService.findRecipeCommandById(Mockito.anyString())).thenReturn(r);
 		
 		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(this.controller).build();
 		

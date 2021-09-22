@@ -108,28 +108,28 @@ public class RecipeServiceImplTest {
 	@Test
 	public void findRecipeById() throws Exception {
 		Recipe recipe = new Recipe();
-		recipe.setId(2l);
+		recipe.setId("2");
 		Optional<Recipe> ops = Optional.of(recipe);
-		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(ops);
-		Recipe result = this.recipeService.findRecipeById(1l);
+		Mockito.when(this.recipeRepository.findById(Mockito.anyString())).thenReturn(ops);
+		Recipe result = this.recipeService.findRecipeById("1");
 		assertNotNull(result);
-		Mockito.verify(this.recipeRepository, Mockito.times(1)).findById(Mockito.anyLong());
+		Mockito.verify(this.recipeRepository, Mockito.times(1)).findById(Mockito.anyString());
 		Mockito.verify(this.recipeRepository, Mockito.never()).findAll();
 	}
 	
 	@Test
 	public void testDeleteRecipeById() throws Exception {
 		
-		this.recipeService.deleteRecipeById(1l);
+		this.recipeService.deleteRecipeById("1");
 		
-		Mockito.verify(this.recipeRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
+		Mockito.verify(this.recipeRepository, Mockito.times(1)).deleteById(Mockito.anyString());
 	}
 	
 	@Test(expected=NotFoundException.class)
 	public void getRecipeByIdNotFound() throws Exception {
 		Optional<Recipe> recipe = Optional.empty();
-		Mockito.when(this.recipeRepository.findById(Mockito.anyLong())).thenReturn(recipe);
-		this.recipeService.findRecipeById(1l);
+		Mockito.when(this.recipeRepository.findById(Mockito.anyString())).thenReturn(recipe);
+		this.recipeService.findRecipeById("1");
 	}
 	
 	/**

@@ -1,41 +1,26 @@
 package com.ma.recipeapp.model;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(exclude= {"recipe"})
-@Entity
+@Getter
+@Setter
 public class Ingredient {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
+	private String id = UUID.randomUUID().toString();
+
 	private String description;
-	
+
 	private BigDecimal amount;
-	
-	@ManyToOne
-	private Recipe recipe;
-	
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "uom_id")
+
+	@DBRef
 	private UnitOfMeasure unitOfMeasure;
-	
-	
-	
+
 	public Ingredient() {
 		super();
 	}
@@ -45,6 +30,6 @@ public class Ingredient {
 		this.description = description;
 		this.amount = amount;
 		this.unitOfMeasure = unitOfMeasure;
-	}	
-	
+	}
+
 }
