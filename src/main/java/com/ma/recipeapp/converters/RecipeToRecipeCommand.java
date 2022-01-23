@@ -4,6 +4,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+import com.ma.recipeapp.commands.IngredientCommand;
 import com.ma.recipeapp.commands.RecipeCommand;
 import com.ma.recipeapp.model.Category;
 import com.ma.recipeapp.model.Recipe;
@@ -55,7 +56,11 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 
         if (source.getIngredients() != null && source.getIngredients().size() > 0){
             source.getIngredients()
-                    .forEach(ingredient -> command.getIngredients().add(ingredientConverter.convert(ingredient)));
+                    .forEach(ingredient -> {
+                    	IngredientCommand convertedCommand = ingredientConverter.convert(ingredient);
+                    	convertedCommand.setRecipeId(source.getId());
+                    	command.getIngredients().add(convertedCommand);
+                    });
         }
 
         return command;

@@ -34,33 +34,36 @@ public class ImageController {
 	
 	@GetMapping("/recipe/{recipeId}/image")
 	public String showUploadForm(@PathVariable String recipeId, Model model) {
-		model.addAttribute("recipe", this.recipeService.findRecipeCommandById(recipeId));
+		model.addAttribute("recipe", this.recipeService.findRecipeCommandById(recipeId).block());
 		return "recipe/imageuploadform";
 	}
 	
 	@PostMapping("/recipe/{recipeId}/image")
 	public String showUploadForm(@PathVariable String recipeId, @RequestParam("imagefile") MultipartFile multipartFile) {
-		this.imageService.saveImageFile(recipeId, multipartFile);
+		this.imageService.saveImageFile(recipeId, multipartFile).block();
 		return "redirect:/recipe/" + recipeId + "/show";
 	}
 	
 	@GetMapping("/recipe/{recipeId}/recipeimage")
 	public void renderImageFromDB(@PathVariable String recipeId, HttpServletResponse response) throws IOException {
-		RecipeCommand findRecipeCommandById = this.recipeService.findRecipeCommandById(recipeId);
-		Byte[] image = findRecipeCommandById.getImage();
-		
-		byte[] byteArray = new byte[image.length];
-		
-		int i= 0;
-		for(Byte b : image) {
-			byteArray[i++] = b;
+		RecipeCommand findRecipeCommandById = this.recipeService.findRecipeCommandById(recipeId).block();
+		if(findRecipeCommandById != null) {
+			Byte[] image = findRecipeCommandById.getImage();
+			
+			byte[] byteArray = new byte[image.length];
+			
+			int i= 0;
+			for(Byte b : image) {
+				byteArray[i++] = b;
+			}
+			
+			
+			response.setContentType("image/jpeg");
+			
+			InputStream is = new ByteArrayInputStream(byteArray);
+			
+			IOUtils.copy(is, response.getOutputStream());
 		}
 		
-		
-		response.setContentType("image/jpeg");
-		
-		InputStream is = new ByteArrayInputStream(byteArray);
-		
-		IOUtils.copy(is, response.getOutputStream());
 	}
 }

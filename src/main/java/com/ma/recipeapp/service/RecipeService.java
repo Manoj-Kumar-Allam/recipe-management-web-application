@@ -1,19 +1,20 @@
 package com.ma.recipeapp.service;
 
-import java.util.Set;
-
 import com.ma.recipeapp.commands.RecipeCommand;
 import com.ma.recipeapp.model.Recipe;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 public interface RecipeService {
 	
-	public Set<Recipe> getRecipes();
+	public Flux<Recipe> getRecipes();
 	
-	public Recipe findRecipeById(String id);
+	public Mono<Recipe> findRecipeById(String id);
 	
-	public RecipeCommand findRecipeCommandById(String id);
+	public Mono<RecipeCommand> findRecipeCommandById(String id);
 	
-	public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
+	public Mono<RecipeCommand> saveRecipeCommand(RecipeCommand recipeCommand);
 	
-	public void deleteRecipeById(String id);
+	public Mono<Void> deleteRecipeById(String id);
 }

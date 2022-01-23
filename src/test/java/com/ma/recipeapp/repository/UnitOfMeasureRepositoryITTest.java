@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ma.recipeapp.model.UnitOfMeasure;
@@ -22,7 +22,7 @@ import com.ma.recipeapp.model.UnitOfMeasure;
  * @version $Revision: 1.0 $
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataMongoTest
 public class UnitOfMeasureRepositoryITTest {
 	
 	@Autowired
@@ -43,6 +43,9 @@ public class UnitOfMeasureRepositoryITTest {
 	
 	@Test
 	public void testUOMRepository() {
+		UnitOfMeasure uom = new UnitOfMeasure();
+		uom.setDescription("Teaspoon");
+		this.unitOfMeasureRepository.save(uom);
 		Optional<UnitOfMeasure> findByDescription = this.unitOfMeasureRepository.findByDescription("Teaspoon");
 		assertEquals("Teaspoon", findByDescription.get().getDescription());
 	}

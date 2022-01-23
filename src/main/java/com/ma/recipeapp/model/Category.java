@@ -3,7 +3,6 @@ package com.ma.recipeapp.model;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -19,7 +18,6 @@ public class Category {
 
 	private String description;
 	
-	@DBRef
 	private Set<Recipe> recipes;
 
 }

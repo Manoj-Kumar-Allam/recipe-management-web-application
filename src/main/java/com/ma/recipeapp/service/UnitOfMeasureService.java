@@ -1,10 +1,10 @@
 package com.ma.recipeapp.service;
 
-import java.util.Set;
-
 import com.ma.recipeapp.commands.UnitOfMeasureCommand;
+
+import reactor.core.publisher.Flux;
 
 public interface UnitOfMeasureService {
 	
-	Set<UnitOfMeasureCommand> listAllUnitOfMeasures();
+	Flux<UnitOfMeasureCommand> listAllUnitOfMeasures();
 }
